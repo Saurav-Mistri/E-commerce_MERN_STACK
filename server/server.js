@@ -1,8 +1,11 @@
 import express from 'express';
 import { PORT } from '../config/index.js';
+import db_connect from './config/database.js';
 import products from './data/products.js';
 
 const port = PORT;
+// Connect to Database
+db_connect();
 
 const app = express();
 
