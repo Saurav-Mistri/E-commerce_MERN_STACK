@@ -19,9 +19,12 @@
     "server": "nodemon server/server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import":"node server/seeder.js",
+    "data:destroy":"node server/seeder.js -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "express": "^5.1.0",
     "mongoose": "^8.13.2"
   },
