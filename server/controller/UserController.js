@@ -12,7 +12,7 @@ const authUser = asyncHandler(async (req, res) => {
     if (user && (await user.matchPassword(password))) {
         generateToken(res, user._id);
 
-        res.json({
+        res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,
@@ -45,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (user) {
         generateToken(res, user._id);
-        
+
         res.status(201).json({
             _id: user._id,
             name: user.name,
@@ -73,7 +73,19 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route POST /api/users/prodile
 // @access Public
 const getUserProfile = asyncHandler(async (req, res) => {
-    res.send('get user profile');
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+        res.status(200).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
+    } else {
+        res.status(404);
+        throw new Error('User not found!');
+    }
 });
 
 // @desc update user profile using token
