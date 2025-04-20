@@ -1,3 +1,5 @@
+import { NODE_ENV } from "../../config/index.js";
+
 const not_found = (req, res, next) => {
     const error = new Error(`Not Found - ${req.originalUrl}`);
     res.status(404);
@@ -11,11 +13,11 @@ const error_handler = (err, req, res, next) => {
     if (err.name === 'CastError' && err.kind === 'ObjectId') {
         message = `Resource not found!`;
         statusCode = 404;
-    }    
+    }
 
     res.status(statusCode).json({
         message,
-        stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+        stack: NODE_ENV === 'production' ? null : err.stack,
     });
 }
 
