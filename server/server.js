@@ -1,5 +1,6 @@
 import express from 'express';
 import { PORT } from '../config/index.js';
+import cookieParser from 'cookie-parser';
 import db_connect from './config/database.js';
 import product_routes from './routes/product.js';
 import user_routes from './routes/user.js';
@@ -14,6 +15,9 @@ const app = express();
 // Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Cookie parser middleware
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.send('API is running...!');
