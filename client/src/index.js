@@ -13,14 +13,16 @@ import './assets/styles/bootstrap.custom.css';
 import './assets/styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import HomePage from './pages/HomePage';
-import ProductDetailsPage from './pages/ProductDetailsPage';
+import HomePage from './pages/HomePage.jsx';
+import ProductDetailsPage from './pages/ProductDetailsPage.jsx';
+import CartPage from './pages/CartPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomePage />} />
       <Route path='/product/:id' element={<ProductDetailsPage />} />
+      <Route path='/cart' element={<CartPage />} />
     </Route>
   )
 )
