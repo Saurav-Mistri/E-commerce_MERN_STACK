@@ -13,4 +13,4 @@ const FormContiner = ({children}) => {
     )
 }
 
-export default FormContiner
+export default FormContiner;
