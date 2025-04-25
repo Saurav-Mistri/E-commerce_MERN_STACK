@@ -30,10 +30,10 @@ const OrderPage = () => {
                     value: {
                         'client-id': paypal.clientId,
                         currency: 'USD',
-                    }
+                    },
                 });
                 paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-            }
+            };
             if (order && !order.is_paid) {
                 if (!window.paypal) {
                     loadPayPalScript();
@@ -41,6 +41,12 @@ const OrderPage = () => {
             }
         }
     }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal]);
+
+
+    function onApprove() { }
+    function onApproveTest() { }
+    function onError() { }
+    function createOrder() { }
 
     return isLoading ? (
         <Loader />
@@ -61,7 +67,10 @@ const OrderPage = () => {
                                 <strong>Email: </strong>{order.user.email}
                             </p>
                             <p>
-                                <strong>Address: </strong>{order.shipping_address.address}, {order.shipping_address.city}, {' '} {order.shipping_address.postalCode},{' '} {order.shipping_address.country}
+                                <strong>Address:</strong>
+                                {order.shipping_address.address}, {order.shipping_address.city}{' '}
+                                {order.shipping_address.postalCode},{' '}
+                                {order.shipping_address.country}
                             </p>
                             <p>
                                 {order.is_delivered ? (
@@ -136,6 +145,21 @@ const OrderPage = () => {
                                 </Row>
                             </ListGroup.Item>
                             {/* PAY ORDER PLACEHOLDER */}
+                            {!order.is_paid && (
+                                <ListGroup.Item>
+                                    {loadingPay && <Loader />}
+                                    {isPending ? <Loader /> : (
+                                        <div>
+                                            <Button onClick={onApproveTest} style={{ marginBottom: '10px' }}>
+                                                Test Pay Order
+                                            </Button>
+                                            <div>
+                                                <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError}></PayPalButtons>
+                                            </div>
+                                        </div>
+                                    )}
+                                </ListGroup.Item>
+                            )}
                             {/* MARK AS DELIVERED PLACEHOLDER */}
                         </ListGroup>
                     </Card>
