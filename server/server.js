@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import db_connect from './config/database.js';
 import product_routes from './routes/product.js';
 import user_routes from './routes/user.js';
+import order_routes from './routes/order.js';
 import { not_found, error_handler } from './middleware/errorHandler.js';
 
 const port = PORT;
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', product_routes);
 app.use('/api/users', user_routes);
+app.use('/api/orders', order_routes);
 
 app.use(not_found);
 app.use(error_handler);
