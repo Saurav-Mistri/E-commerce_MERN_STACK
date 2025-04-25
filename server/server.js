@@ -1,5 +1,5 @@
 import express from 'express';
-import { PORT } from '../config/index.js';
+import { PORT, PAYPAL_CLIENT_ID } from '../config/index.js';
 import cookieParser from 'cookie-parser';
 import db_connect from './config/database.js';
 import product_routes from './routes/product.js';
@@ -8,6 +8,7 @@ import order_routes from './routes/order.js';
 import { not_found, error_handler } from './middleware/errorHandler.js';
 
 const port = PORT;
+const paypalClientId = PAYPAL_CLIENT_ID;
 // Connect to Database
 db_connect();
 
@@ -27,6 +28,8 @@ app.get('/', (req, res) => {
 app.use('/api/products', product_routes);
 app.use('/api/users', user_routes);
 app.use('/api/orders', order_routes);
+
+app.use('api/config/paypal', (req, res) => res.send({ clientId: paypalClientId }));
 
 app.use(not_found);
 app.use(error_handler);
