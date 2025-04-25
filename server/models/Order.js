@@ -40,7 +40,7 @@ const order_schema = mongoose.Schema({
             type: String,
             required: true,
         },
-        postal_code: {
+        postalCode: {
             type: String,
             required: true,
         },
